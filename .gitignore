@@ -5,6 +5,7 @@ build/*
 node_modules/
 *.log
 .env
+build/bundle.js
 
 # OS generated files
 .DS_Store

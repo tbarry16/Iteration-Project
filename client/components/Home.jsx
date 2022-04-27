@@ -6,27 +6,28 @@ const Home = () => {
   let navigate = useNavigate()
   const [user] = useContext(UserContext)
 
+
+
   useEffect(() => {
     console.log(user);
   }, [user])
 
   //If user is already logged in via coolies/storage (TBD by Colton) then redirect to their landing page
-  useEffect(() => {
-    if (user) {
-      navigate('/userlanding')
-    }
-  }, [])
-
 
   function loginClick() {
-    navigate('/login')
+    if (user) {
+      navigate('/userlanding')
+    } else {
+      navigate('/login')
+    }
   }
 
   function createClick() {
     navigate('/createuser')
   }
-
-  if (!user) {
+  if (user) {
+    return navigate('/userlanding')
+  } else {
     return (
       <div className="home">
         <button className="create-Btn" onClick={() => createClick()}>
@@ -38,10 +39,6 @@ const Home = () => {
         {/* <Link to="/home">Home</Link>  */}
       </div>
     )
-    // } else {
-    //   // <Redirect to="/userlanding" />;
-    //   navigate('/createuser');
-    // }
   }
 }
 
