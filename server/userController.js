@@ -52,18 +52,18 @@ userController.verifyLogin = async (req, res, next) => {
     return res.status(400).send('Must provide a password');
 
   try {
-    const queryString = `SELECT password FROM users WHERE username='${req.body.userInfo.username}'`;
-    const value = [req.body.userInfo.username];
-    const dbPassword = await db.query(queryString);
-    console.log(dbPassword.rows); ///dbPassword is rows object so need to access rows[0].password to get retrieved password
-    if (!dbPassword.rows[0]) return res.send('Username does not exist');
+    const queryString = `SELECT * FROM users WHERE username='${req.body.userInfo.username}'`;
+    const userInfo = await db.query(queryString);
+    console.log(userInfo.rows); ///userInfo is rows object so need to access rows[0].password to get retrieved password
+    if (!userInfo.rows[0].password) return res.send('Username does not exist');
     // if (await bcrypt.compare(req.body.userInfo.password, dbPassword)) {
     if (
       await bcrypt.compare(
         req.body.userInfo.password,
-        dbPassword.rows[0].password
+        userInfo.rows[0].password
       )
     ) {
+      res.locals.userInfo = userInfo.rows[0];
       console.log('Passwords match!!!');
       next();
     } else {

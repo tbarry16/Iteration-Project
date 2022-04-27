@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-
 const path = require("path");
 const cookieParser = require('cookie-parser');
 const apiBrewRouter = require("./routes/apiBrewRouter");
@@ -40,16 +39,16 @@ app.post(
   userController.verifyLogin,
   userController.setCookie,
   (req, res) => {
-    res.status(200).send('Login Success');
-    // console.log('login success!');
+    res.status(200).json(res.locals.userInfo);
+    console.log('login success!');
     // res.redirect('/userlanding');
   }
 );
 
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../client/template.html'));
+// app.get('/', (req, res) => {
+//   res.status(200).sendFile(path.join(__dirname, '../client/template.html'));
 
-});
+// });
 
 // ERROR HANDLER
 //invoked if you pass an argument to next()

@@ -4,7 +4,7 @@ import {
   Routes,
   Navigate,
 } from 'react-router-dom';
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import Login from './Login';
 import CreateUser from './CreateUser';
 import Home from './Home';
@@ -24,22 +24,27 @@ import Footer from './Footer';
 //      5) Routes replaced Switch component in react-router-dom v6 https://www.youtube.com/watch?v=aZGzwEjZrXc
 
 //Hardcoding User Information for Testing Purposes.....would have to fetch this from cookies within UserDetails component I believe....
-const user = {
-  name: 'Ricky',
-  usersid: 2,
-  state: 'new_york',
-  favorites: ['nyc brew', 'brew4life'],
-};
+// const user = {
+//   name: 'Ricky',
+//   usersid: 2,
+//   state: 'new_york',
+//   favorites: ['nyc brew', 'brew4life'],
+// };
 
 //If don't want user logged in then uncomment below....
 // const user = undefined;
 
+// pass user 
+
 const App = () => {
   //Set user information here on load through useeffect?
-  // const [userInfo, setUserInfo] = useState('');
-
+  const [user, setUser] = useState(null);
+  const updateUser = (newUser) => {
+    console.log(newUser);
+    return setUser(newUser);
+  }
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={[user, updateUser]}>
       <Router>
         <div className='App'>
           <div className='navbarHolder'>
