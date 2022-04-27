@@ -3,8 +3,9 @@ import {
   Route,
   Routes,
   Navigate,
+  useNavigate,
 } from 'react-router-dom';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import Login from './Login';
 import CreateUser from './CreateUser';
 import Home from './Home';
@@ -43,6 +44,18 @@ const App = () => {
     console.log(newUser);
     return setUser(newUser);
   }
+
+  useEffect(() => {
+    fetch('/login')
+      .then(data => data.json())
+      .then(data => setUser(data.userInfo))
+    // .then(data => {
+    //   if (data.isLoggedIn) {
+    //     navigate('/userlanding')
+    //   }
+    // })
+  }, [])
+
   return (
     <UserContext.Provider value={[user, updateUser]}>
       <Router>

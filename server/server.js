@@ -21,13 +21,20 @@ app.use("/visited", visitRouter);
 
 app.use("/client", express.static(path.resolve(__dirname, "../client")));
 
+app.get('/userlanding', (req, res) => {
+  res.redirect('/')
+})
 
-app.get('/', (req, res) => {
+app.get('/', userController.checkUser, (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../client/template.html'));
 });
 
 app.get('/login', userController.checkUser, (req, res) => {
-  res.status(200);
+  if (res.locals.isLoggedIn) {
+    res.status(200).json(res.locals);
+  } else {
+    res.redirect('/')
+  }
 })
 
 app.post('/createUser', userController.createUser,  (req, res) => {
@@ -38,8 +45,9 @@ app.post(
   '/login',
   userController.verifyLogin,
   userController.setCookie,
+  userController.checkUser,
   (req, res) => {
-    res.status(200).json(res.locals.userInfo);
+    res.status(200).json(res.locals);
     console.log('login success!');
     // res.redirect('/userlanding');
   }

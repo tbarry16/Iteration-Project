@@ -1,4 +1,4 @@
-express = require('express');
+const express = require('express');
 const brewController = require('../controllers/brewController');
 
 const router = express.Router();

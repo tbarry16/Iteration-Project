@@ -82,11 +82,18 @@ userController.setCookie = (req, res, next) => {
   return next();
 };
 
-userController.checkUser = (req, res, next) => {
-  if(!req.cookies) { 
+userController.checkUser = async (req, res, next) => {
+  console.log('in checkUser');
+  if(!req.cookies.BrewCookie) {
+    res.locals.isLoggedIn = false;
+    // res.redirect('/login')
     next() 
   } else { 
-    res.redirect('/userlanding');
+    const queryString = `SELECT * FROM users WHERE username='${req.cookies.BrewCookie}'`;
+    const userInfo = await db.query(queryString);
+    res.locals.isLoggedIn = true;
+    res.locals.userInfo = userInfo.rows[0];
+    next();
   }
 }
 
