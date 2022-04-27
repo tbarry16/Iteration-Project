@@ -1,4 +1,4 @@
-express = require('express');
+const express = require('express');
 
 const brewController = require('../controllers/brewController');
 
@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get(
   '/',
-  brewController.getVisited,
+  // brewController.getVisited,
   brewController.getBreweries,
   (req, res) => {
     // console.log('made it back from controller to apiBrewRouter GET middleware');
