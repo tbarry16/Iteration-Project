@@ -6,9 +6,7 @@ const Home = () => {
   let navigate = useNavigate()
   const [user] = useContext(UserContext)
 
-  if (user) {
-    navigate('/userlanding')
-  }
+
 
   useEffect(() => {
     console.log(user);
@@ -27,22 +25,21 @@ const Home = () => {
   function createClick() {
     navigate('/createuser')
   }
-
-  return (
-    <div className="home">
-      <button className="create-Btn" onClick={() => createClick()}>
-        New to FindMyBrews? Click here for your Passport!
-      </button>
-      <button className="login-Btn" onClick={() => loginClick()}>
-        Already have your Passport? Click here to log in!
-      </button>
-      {/* <Link to="/home">Home</Link>  */}
-    </div>
-  )
-  // } else {
-  //   // <Redirect to="/userlanding" />;
-  //   navigate('/createuser');
-  // }
+  if (user) {
+    return navigate('/userlanding')
+  } else {
+    return (
+      <div className="home">
+        <button className="create-Btn" onClick={() => createClick()}>
+          New to FindMyBrews? Click here for your Passport!
+        </button>
+        <button className="login-Btn" onClick={() => loginClick()}>
+          Already have your Passport? Click here to log in!
+        </button>
+        {/* <Link to="/home">Home</Link>  */}
+      </div>
+    )
+  }
 }
 
 export default Home

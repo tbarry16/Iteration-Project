@@ -53,6 +53,11 @@ app.post(
   }
 );
 
+app.get('/logout', (req, res) => {
+  res.clearCookie('BrewCookie')
+  res.send('Successfully logged out')
+})
+
 // app.get('/', (req, res) => {
 //   res.status(200).sendFile(path.join(__dirname, '../client/template.html'));
 

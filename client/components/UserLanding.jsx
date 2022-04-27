@@ -4,32 +4,49 @@ import StateBreweries from './StateBreweries';
 import VisitedBreweries from './VisitedBreweries';
 import UserContext from './UserDetails';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UserLanding = () => {
-  //Batching state changes in React leading to onClick update lags????
   const [stateBreweries, setStateBreweries] = useState();
   const [visBreweries, setVisBreweries] = useState();
   const [user] = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     //Obtaining state upon user hitting landing page - user's state breweries and visited breweries
-    getBreweries();
-  }, [])
+    getStateBreweries();
+    getVisBreweries();
+  }, []);
 
-  const getBreweries = async () => {
+  useEffect(() => {
+    navigate('/userlanding');
+  }, [user]);
+
+  const getStateBreweries = async () => {
     if (user) {
       try {
         const response = await axios.get('/api', {
           params: { state: user.homestate, id: user.id },
         })
         setStateBreweries(response.data.getBreweries)
-        setVisBreweries(response.data.visited)
       } catch (error) {
         console.log(error)
       }
     }
   };
 
+  const getVisBreweries = async () => {
+    if (user) {
+      try {
+        const response = await axios.get('/visited', {
+          params: { state: user.homestate, id: user.id },
+        })
+        setVisBreweries(response.data.visited)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  };
   /*************************************************** */
 
   //Try to desctructure getBreweries into two separate API calls (one to public API, one to PostgreSQL): need to separate the /api GET call on the server side into two different routes. Then call those routes in two different functions in this file.
@@ -57,9 +74,9 @@ const UserLanding = () => {
       },
       // params: { userId: user.usersid }, //Having trouble sending over user id as separate params
     })
-
     //Skips re-rendering sometimes....think due to automatchic batching...
-    setVisBreweries([...response.data.visited]);
+    // setVisBreweries([...response.data.visited]);
+    return getVisBreweries();
   };
 
   const removeVisited = async (breweryDetails) => {
@@ -76,8 +93,8 @@ const UserLanding = () => {
       },
       // params: { userId: user.usersid },
     })
-
-    setVisBreweries([...response.data.visited])
+    return getVisBreweries();
+    // setVisBreweries([...response.data.visited])
   }
 
   if (stateBreweries) {

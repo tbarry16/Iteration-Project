@@ -18,7 +18,7 @@ module.exports = {
     proxy: {
       '/': 'http://localhost:3000',
     },
-
+    
     hot: true,
     open: true,
     compress: true,
