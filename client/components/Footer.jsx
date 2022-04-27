@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import UserContext from './UserDetails';
 
 const Footer = (props) => {
-  const user = useContext(UserContext);
+  const [user] = useContext(UserContext);
 
   return (
     <div className='footer-container'>

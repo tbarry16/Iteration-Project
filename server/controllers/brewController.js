@@ -41,11 +41,10 @@ brewController.getVisited = async (req, res, next) => {
   ////// getFaves to Do ////////
   // console.log(`MADE IT TO getVISITED`);
   let usersID;
-
   if (req.query.id) {
     usersID = req.query.id;
   } else if (req.params.id) {
-    req.params.id;
+    usersID = req.params.id;
   } else {
     usersID = res.locals.userid; //coming from addVisited controller
   }

@@ -8,6 +8,8 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   let navigate = useNavigate()
+  const [user, updateUser] = useContext(UserContext);
+  // const [user, setUser] = useState(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault() //So that form submission doesn't trigger a page refresh
@@ -20,11 +22,15 @@ const Login = () => {
           password: password,
         },
       })
+      console.log(response.data);
+
       //If success then update context for logged in user and redirect them...
-      if (response.data === 'Login Success') {
-        navigate('/createuser') //if successfull, send to UserLanding route
+      if (response.data === 'Username does not exist' || response.data === 'Incorrect password') {
+        alert(response.data)
+      } else if (response.data.id) {
+        updateUser(response.data);
+        navigate('/userlanding'); //if successfull, send to UserLanding route
       }
-      console.log(response.data)
     } catch (error) {
       console.log(error)
     }
