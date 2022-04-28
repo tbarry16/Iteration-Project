@@ -5,13 +5,20 @@ import UserContext from './UserDetails'
 
 const Home = () => {
   let navigate = useNavigate()
-  const [user] = useContext(UserContext)
+  const [user, updateUser] = useContext(UserContext)
   const [googleLoginData, setGoogleLoginData] = useState(null)
   const [needLocation, setNeedLocation] = useState(false)
+  const [googleLogInDone, setGoogleLogInDone] = useState(false)
 
   useEffect(() => {
     console.log(user);
   }, [user])
+
+  // useEffect(() => {
+  //   if (googleLogInDone) {
+  //     navigate('/')
+  //   }
+  // }, [googleLogInDone])
 
   //If user is already logged in via coolies/storage (TBD by Colton) then redirect to their landing page
 
@@ -27,23 +34,31 @@ const Home = () => {
     navigate('/createuser')
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     const { family_name, given_name, sub } = googleLoginData
-    fetch('/createuser', {
+    console.log('just before post fetch in OAuth')
+    await fetch('/createUser', {
       method: 'POST',
       headers: {
-        'Content=Type': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: {
-        newuser: {
+      body: JSON.stringify({
+        newUser: {
           firstname: given_name, 
           lastname: family_name, 
           homestate: document.getElementById('homestate-input').value, 
           username: sub, 
           password: 'google-auth'
-        }
-      }
+        },
+        googleOAuth: true
+      })
     })
+    setGoogleLogInDone(true);
+    setNeedLocation(false);
+    console.log('fetch is done')
+    window.location.reload();
+    return;
   }
 
   const handleFailure = (result) => {
@@ -73,6 +88,7 @@ const Home = () => {
     })
     .then(res => res.json())
     .then(data => {
+      if(data.hasAccount) return window.location.reload();
       console.log('data in response:', data)
       setGoogleLoginData(data)
       setNeedLocation(true)

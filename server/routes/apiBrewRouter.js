@@ -1,5 +1,5 @@
 const express = require('express');
-
+const db = require('../db.js')
 const brewController = require('../controllers/brewController');
 
 const router = express.Router();
@@ -30,6 +30,15 @@ router.post('/google-login', async (req, res, next) => {
   //Query DB to check if user exists. if so 
       //Set res.cookie appropriately
       //return Res.redirect to /
+  const userQuery = `SELECT * FROM users WHERE username='${sub}'`
+  const result = await db.query(userQuery)
+  console.log(result)
+  if (result.rows.length) {
+    console.log('in result length ')
+    res.locals.hasAccount = true
+    res.cookie('BrewCookie', sub, {httpOnly: true})
+    return res.status(200).json(res.locals)
+  }
   //otherwise send back data 
   res.status(200).json({email, family_name, given_name, sub})
 });

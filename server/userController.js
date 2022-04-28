@@ -12,6 +12,7 @@ const alreadyUsed = await db.query(queryString);
 */
 
   console.log(`Entering Create Username`);
+  console.log(req.body)
 
   try {
     if (!req.body.newUser.username || !req.body.newUser.password)
