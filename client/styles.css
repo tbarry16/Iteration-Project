@@ -50,6 +50,7 @@ body {
   height: 100px;
   width: 100%;
 }
+
 .banner {
   font-size: 2.5em;
   margin: 0;
@@ -175,6 +176,7 @@ button {
 .brand {
   font-size: 24px;
 }
+
 .nav_links {
   font-size: 20px;
   list-style: none;
@@ -240,4 +242,51 @@ footer {
 
 .userlanding {
   margin-top: 5em;
+}
+
+.outer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .2);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-modal {
+  display: flex;
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  max-width: 640px;
+  background-color: rgb(219, 200, 94);
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc
+}
+
+.reviewStyle {
+  display: flex;
+  background-color: rgb(230, 225, 225);
+  border-radius: 12px;
+  border: 1px solid
+}
+
+.reviewLine {
+  background-color: red;
+  border-radius: 10px;
+
+}
+
+.closeB {
+  background-color: rgba(122, 120, 120, 0.2)
+}
+
+.reviewB {
+  background-color: rgba(29, 64, 39, 0.2)
 }

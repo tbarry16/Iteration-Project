@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react'
-import UserContext from './UserDetails'
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from './UserDetails';
+import Modal from '@mui/material/Modal';
+import ViewComments from './ViewComments';
 
 const Brewery = (props) => {
   const [user] = useContext(UserContext)
   const breweryComp = props.breweryComp
   let bAttribs = {}
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   if (breweryComp === 'state') {
     //State Component props
@@ -41,7 +46,7 @@ const Brewery = (props) => {
           <br />
           <span>{bAttribs.street}</span>
           <br />
-          <span>{bAttribs.address_2 || 'Not yet rated.'}</span>
+          <span>{bAttribs.phone || 'Phone # Not Availabe'}</span>
           <br />
           <button
             className="addButton"
@@ -59,6 +64,24 @@ const Brewery = (props) => {
           >
             Add to Visited
           </button>
+          <button onClick={() => handleOpen(false)}>
+            Reviews
+          </button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-ViewComment"
+            aria-describedby="modal-modal-description"
+            className="outer-modal"
+          >
+            <div className="inner-modal">
+              <ViewComments
+                brewId={bAttribs.id}
+                userName={user.username}
+                closeView={handleClose}
+              />
+            </div>
+          </Modal>
           <br />
         </div>
       </div>
