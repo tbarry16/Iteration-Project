@@ -4,18 +4,63 @@
 
 body {
   /* background-color: lightblue; */
-  background: url('https://images.unsplash.com/photo-1612528443702-f6741f70a049?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80');
-  background-size: cover;
+  background-image: url('https://images.unsplash.com/photo-1612528443702-f6741f70a049?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80');
+  background-size: auto;
+  background-attachment: fixed;
   background-repeat: no-repeat;
-
   font-family: 'Poppins', sans-serif;
-
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+.review1 {
+  background-color: #313030;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin: 0 8px;
+  font-size: 10px;
+  font-weight: 400;
+  margin-bottom: 10px;
 
+}
+
+.closeB {
+  background-color: #313030;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin: 0 8px;
+  font-size: 10px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.reviewB {
+  background-color: #313030;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin: 0 8px;
+  font-size: 10px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.reviewB:hover {
+  transform: scale(98%);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
 
 .home {
   display: flex;
@@ -50,6 +95,7 @@ body {
   height: 100px;
   width: 100%;
 }
+
 .banner {
   font-size: 2.5em;
   margin: 0;
@@ -151,6 +197,7 @@ button {
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 5em;
+  overflow-y: auto;
 }
 
 .visitedBreweries {
@@ -158,6 +205,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
 }
 
 .scroll {
@@ -175,6 +223,7 @@ button {
 .brand {
   font-size: 24px;
 }
+
 .nav_links {
   font-size: 20px;
   list-style: none;
@@ -240,4 +289,94 @@ footer {
 
 .userlanding {
   margin-top: 5em;
+}
+
+.outer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .2);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.outer-modal2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(253, 250, 250, 0.2);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-modal {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  width: 640px;
+  max-width: 640px;
+  max-height: 480px;
+  overflow-y: auto;
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRv5PsOGbUX9w0zfFxQnR-xFW42mwWgXBER-K7hlN-uASmPHiHXF4jUMULy_qKITJO41c&usqp=CAU');
+  background-size: 50%;
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc
+}
+
+.reviewStyle {
+  background-color: white;
+  border-radius: 12px;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.reviewLine {
+  background-color: red;
+  border-radius: 10px;
+}
+
+.closeB {
+  background-color: rgba(122, 120, 120, 0.2);
+  border-width: 2px;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+  margin-right: 1em;
+  color: #ffffff;
+}
+
+.reviewB {
+  background-color: rgba(29, 64, 39, 0.2)
+}
+
+.closeB:hover,
+.reviewB:hover {
+  transform: scale(98%);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* .reviewStyle {
+  background-color: red;
+} */
+
+.reviewBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

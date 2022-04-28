@@ -12,6 +12,8 @@ const UserLanding = () => {
   const [user] = useContext(UserContext);
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
     //Obtaining state upon user hitting landing page - user's state breweries and visited breweries
     getStateBreweries();
@@ -47,13 +49,6 @@ const UserLanding = () => {
       }
     }
   };
-  /*************************************************** */
-
-  //Try to desctructure getBreweries into two separate API calls (one to public API, one to PostgreSQL): need to separate the /api GET call on the server side into two different routes. Then call those routes in two different functions in this file.
-
-  //Then we can restructure this page in order to re-render the Visited Breweries whenever the state in visBreweries has changed, without mkaing a public API call every
-
-  /*************************************************** */
 
   useEffect(() => {
     console.log('State has changed');
