@@ -4,8 +4,10 @@ const brewController = require('../controllers/brewController');
 
 const router = express.Router();
 
-router.get(
-  '/',
+const { OAuth2Client } = require('google-auth-library')
+const client = new OAuth2Client('940209212062-b9l97pr2kqluhhm8snj8djsn9prk771p.apps.googleusercontent.com')
+
+router.get('/',
   // brewController.getVisited,
   brewController.getBreweries,
   (req, res) => {
@@ -15,6 +17,31 @@ router.get(
     return res.status(200).json(res.locals);
   }
 );
+
+
+router.post('/google-login', async (req, res, next) => {
+  const {tokenId} = req.body
+  const ticket = await client.verifyIdToken({
+    idToken: tokenId,
+    audience: '940209212062-b9l97pr2kqluhhm8snj8djsn9prk771p.apps.googleusercontent.com'
+  });
+  const { email, family_name, given_name, sub } = ticket.getPayload();
+
+  //Query DB to check if user exists. if so 
+      //Set res.cookie appropriately
+      //return Res.redirect to /
+  //otherwise send back data 
+  res.status(200).json({email, family_name, given_name, sub})
+});
+
+
+
+
+
+
+
+
+
 
 // ///////////////////////////////////////////////////////////////////////////
 // // Not sure if this is how to do the second get to ONLY getVisted //

@@ -7,6 +7,7 @@ const Home = () => {
   let navigate = useNavigate()
   const [user] = useContext(UserContext)
   const [googleLoginData, setGoogleLoginData] = useState(null)
+  const [needLocation, setNeedLocation] = useState(false)
 
   useEffect(() => {
     console.log(user);
@@ -26,21 +27,40 @@ const Home = () => {
     navigate('/createuser')
   }
 
+  const handleSubmit = () => {
+    const { family_name, given_name, sub } = googleLoginData
+    fetch('/createuser', {
+      method: 'POST',
+      headers: {
+        'Content=Type': 'application/json'
+      },
+      body: {
+        newuser: {
+          firstname: given_name, 
+          lastname: family_name, 
+          homestate: document.getElementById('homestate-input').value, 
+          username: sub, 
+          password: 'google-auth'
+        }
+      }
+    })
+  }
+
   const handleFailure = (result) => {
     alert(result)
   }
 
   const handleLogin =(googleData) => {
-    console.log(googleData)
+    // console.log(googleData)
 
-    const {tokenId, googleId } = googleData;
-    const { email, familyName, givenName} = googleData.profileObj
+    const {tokenId } = googleData;
+    // const { email, familyName, givenName} = googleData.profileObj
 
-    console.log(tokenId)
-    console.log(googleId)
-    console.log(email)
-    console.log(familyName)
-    console.log(givenName)
+    // console.log(tokenId)
+    // console.log(googleId)
+    // console.log(email)
+    // console.log(familyName)
+    // console.log(givenName)
 
     fetch('/api/google-login', {
       method: 'POST',
@@ -48,15 +68,23 @@ const Home = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        tokenId,
-        googleId,
-        email,
-        familyName,
-        givenName
+        tokenId
       })
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log('data in response:', data)
+      setGoogleLoginData(data)
+      setNeedLocation(true)
+    })
+  }
+  let locationForm;
+  if (needLocation) {
+    locationForm = [<form onSubmit={handleSubmit}>
+      <label>Home state:</label>
+      <input id='homestate-input' type='text' placeholder='state'></input>
+      <button type='submit'>Submit</button>
+      </form>]
   }
   
   if (user) {
@@ -77,6 +105,7 @@ const Home = () => {
           onFailure={handleFailure}
           cookiePolicy={'single_host_origin'}
         ></GoogleLogin>
+        {locationForm}
       </div>
     )
   }
