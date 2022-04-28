@@ -4,7 +4,6 @@ const env = dotenv.config().parsed;
 const { Pool } = require("pg");
 // const userQueries = require("./userQueries");
 
-console.log(env.PG_URI);
 const PG_URI = env.PG_URI;
 
 const pool = new Pool({

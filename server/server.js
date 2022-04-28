@@ -7,6 +7,7 @@ const visitRouter = require("./routes/visitRouter");
 const db = require("./db.js");
 
 
+
 const userController = require('./userController');
 
 const port = process.env.PORT || 3000;
@@ -14,6 +15,8 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+
 
 app.use("/api", apiBrewRouter);
 
@@ -37,7 +40,13 @@ app.get('/login', userController.checkUser, (req, res) => {
   }
 })
 
-app.post('/createUser', userController.createUser,  (req, res) => {
+app.post('/createUser', userController.createUser, (req, res) => {
+  if (req.body.googleOAuth) {
+    console.log('ABOUT TO ATTACH COOKIE')
+    res.cookie('BrewCookie', req.body.newUser.username, { httpOnly: true });
+    return res.status(200).json(res.locals)
+    // .json(req.body)
+  }
   res.json(res.locals.users);
 });
 
