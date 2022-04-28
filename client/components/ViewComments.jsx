@@ -60,17 +60,22 @@ const ViewComments = (props) => {
 
   return (
     <div>
-      <h2>Reviews:</h2>
-      {commentArray}
-      <button onClick={closeView} className="closeB">Close</button>
-      <button onClick={handleOpen} className="reviewB">Add Review</button>
+      <div>
+        <div className="reviewBox">
+          <h2>Reviews:</h2>
+          {commentArray}
+          <button onClick={closeView} className="closeB">Close</button>
+          <button onClick={handleOpen} className="reviewB">Add Review</button>
+        </div>
+      </div>
+
 
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-AddComment"
         aria-describedby="form-to-add-comments"
-        className="outer-modal"
+        className="outer-modal2"
       >
         <div className="inner-modal">
           <AddComment

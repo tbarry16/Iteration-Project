@@ -64,7 +64,7 @@ const Brewery = (props) => {
           >
             Add to Visited
           </button>
-          <button onClick={() => handleOpen(false)}>
+          <button onClick={() => handleOpen(false)} className="review1">
             Reviews
           </button>
           <Modal

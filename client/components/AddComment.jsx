@@ -26,7 +26,8 @@ const AddComment = (props) => {
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: 7,
+              marginBottom: 6,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -40,34 +41,47 @@ const AddComment = (props) => {
                 id="outlined"
                 label="Title:"
                 defaultValue="Something Clever."
+                fullWidth
+                sx={{ mt: 3, mb: 2 }}
               />
               <TextField
+                fullwidth
                 id="outlined-multiline-static"
                 label="Comments:"
                 multiline
                 rows={4}
                 defaultValue="What'd you think?"
+                fullWidth
+                sx={{ mb: 2 }}
               />
               <TextField
+                fullwidth
                 id="date"
-                label="Date:"
                 type="date"
                 min="2020-01-01"
                 max="2022-04-31"
+                fullWidth
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 1 }}
               >
                 Submit
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mb: 2 }}
+                onClick={closeView}
+              >
+                Close
               </Button>
             </Box>
           </Box>
         </Container>
       </ThemeProvider>
-      <button onClick={closeView}>Close</button>
     </div>
   )
 }
