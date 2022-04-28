@@ -12,11 +12,31 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const AddComment = (props) => {
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState();
-  const { userName, closeView } = props;
+  const { userName, closeView, breweryName, fetchComments } = props;
   const theme = createTheme();
 
-  const handleSubmit = (data) => {
-    console.log(data);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = {
+      title: event.target[0].value,
+      comment: event.target[2].value,
+      date: event.target[5].value,
+      username: userName,
+      breweryname: breweryName
+    }
+    fetch(`/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(() => {
+        fetchComments(breweryName)
+      })
+      .then(() => {
+        closeView(false);
+      })
   };
 
   return (
@@ -33,16 +53,17 @@ const AddComment = (props) => {
               alignItems: 'center',
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h3">
               Your Review!
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 id="outlined"
                 label="Title:"
-                defaultValue="Something Clever."
+                placeholder="Something Clever."
                 fullWidth
                 sx={{ mt: 3, mb: 2 }}
+                style={{ backgroundColor: "white" }}
               />
               <TextField
                 fullwidth
@@ -50,9 +71,10 @@ const AddComment = (props) => {
                 label="Comments:"
                 multiline
                 rows={4}
-                defaultValue="What'd you think?"
+                placeholder="What'd you think?"
                 fullWidth
                 sx={{ mb: 2 }}
+                style={{ backgroundColor: "white" }}
               />
               <TextField
                 fullwidth
@@ -61,6 +83,7 @@ const AddComment = (props) => {
                 min="2020-01-01"
                 max="2022-04-31"
                 fullWidth
+                style={{ backgroundColor: "white" }}
               />
               <Button
                 type="submit"

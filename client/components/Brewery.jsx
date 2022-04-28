@@ -76,7 +76,7 @@ const Brewery = (props) => {
           >
             <div className="inner-modal">
               <ViewComments
-                brewId={bAttribs.id}
+                breweryName={bAttribs.name}
                 userName={user.username}
                 closeView={handleClose}
               />
@@ -112,6 +112,25 @@ const Brewery = (props) => {
           >
             Remove
           </button>
+          <button onClick={() => handleOpen(false)} className="review1">
+            Reviews
+          </button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-ViewComment"
+            aria-describedby="modal-modal-description"
+            className="outer-modal"
+          >
+            <div className="inner-modal">
+              <ViewComments
+                breweryName={bAttribs.breweryname}
+                userName={user.username}
+                closeView={handleClose}
+              />
+            </div>
+          </Modal>
+          <br />
         </div>
       </div>
     )

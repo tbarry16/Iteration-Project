@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const cookieParser = require('cookie-parser');
 const apiBrewRouter = require("./routes/apiBrewRouter");
+const reviewController = require('./controllers/reviewController')
 const visitRouter = require("./routes/visitRouter");
 const db = require("./db.js");
 
@@ -26,6 +27,14 @@ app.use("/client", express.static(path.resolve(__dirname, "../client")));
 
 app.get('/userlanding', (req, res) => {
   res.redirect('/')
+})
+
+app.get('/comments/:brewery', reviewController.getReviews, (req, res) => {
+  return res.status(200).send(res.locals.reviews)
+})
+
+app.post('/comments', reviewController.addReview, (req, res) => {
+  return res.status(200).send('Success!')
 })
 
 app.get('/', userController.checkUser, (req, res) => {
