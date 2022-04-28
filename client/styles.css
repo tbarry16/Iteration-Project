@@ -5,7 +5,7 @@
 body {
   /* background-color: lightblue; */
   background-image: url('https://images.unsplash.com/photo-1612528443702-f6741f70a049?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80');
-  background-size: auto;
+  background-size: 100%;
   background-attachment: fixed;
   background-repeat: no-repeat;
   font-family: 'Poppins', sans-serif;
@@ -348,7 +348,7 @@ footer {
 }
 
 .closeB {
-  background-color: rgba(122, 120, 120, 0.2);
+  background-color: rgba(86, 84, 84, 0.2);
   border-width: 2px;
   padding: 0.5em 1em;
   border: none;
@@ -361,7 +361,16 @@ footer {
 }
 
 .reviewB {
-  background-color: rgba(29, 64, 39, 0.2)
+  background-color: rgba(86, 84, 84, 0.2);
+  border-width: 2px;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+  margin-right: 1em;
+  color: #ffffff;
 }
 
 .closeB:hover,

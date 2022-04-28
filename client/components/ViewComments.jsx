@@ -9,47 +9,22 @@ const ViewComments = (props) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [comments, setComments] = useState();
-  const { brewId, userName, closeView } = props;
+  const [comments, setComments] = useState([]);
+  const { breweryName, userName, closeView } = props;
 
   // fetch * from comment table where breweryID = brewId
-  // useEffect(() => {
-  //   fetch(`/comments/${brewId}`)
-  //     .then(data => data.json())
-  //     .then(data => setComments(data))
-  // })
+  useEffect(() => {
+    fetchComments(breweryName)
+  }, [])
 
-  //hardcoded sample data
-  const commentList = [
-    {
-      title: 'Hello',
-      comment: 'Really Good Beer',
-      date: 'Monday',
-    },
-    {
-      title: 'Howdy',
-      comment: 'Beer sucks',
-      date: 'Tuesday',
-    },
-    {
-      title: 'Hi',
-      comment: 'Beer sucks or Good',
-      date: 'Wensday',
-    },
-    {
-      title: 'Here',
-      comment: 'Beer too strong',
-      date: 'Thursday',
-    },
-    {
-      title: 'There',
-      comment: 'Beer too bitter',
-      date: 'Friday',
-    }
-  ]
+  function fetchComments(breweryName) {
+    return fetch(`/comments/${breweryName}`)
+      .then(data => data.json())
+      .then(data => setComments(data))
+  }
 
   //assign data to an array of objects
-  const commentArray = commentList.map((comment, index) => {
+  const commentArray = comments.map((comment, index) => {
     return (
       <Comment className="reviewLine"
         {...comment}
@@ -63,7 +38,7 @@ const ViewComments = (props) => {
       <div>
         <div className="reviewBox">
           <h2>Reviews:</h2>
-          {commentArray}
+          {commentArray.length ? commentArray : <p>No reviews :( Be the first to write one!</p>}
           <button onClick={closeView} className="closeB">Close</button>
           <button onClick={handleOpen} className="reviewB">Add Review</button>
         </div>
@@ -79,8 +54,10 @@ const ViewComments = (props) => {
       >
         <div className="inner-modal">
           <AddComment
+            breweryName={breweryName}
             userName={userName}
             closeView={handleClose}
+            fetchComments={fetchComments}
           />
         </div>
       </Modal>
